@@ -1,0 +1,83 @@
+<html>
+    <title>Googol webserver</title>
+    <h1>Googol webserver</h1>
+    <table border=0>
+        <tr bgcolor="black">
+            <td align="right"><font color="white" size="2"><b>Game parameters</b></font></td>
+        </tr>
+        <tr>
+            <td>
+                <form method="post" action="{{.Proto}}://{{.Addr}}:{{.Port}}/googol">
+                    <table border=0>
+                        <tr>
+                            <td><b>Initial state</b>:</td>
+                            <td><input type="text" name="InitialState" style="text-align:right;width:430px" value="{{range .InitialState}}{{.}} {{end}}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Board width</b>:</td>
+                            <td><input type="number" name="BoardWidth" style="text-align:right;width:430px" value="{{.BoardWidth}}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Board height</b>:</td>
+                            <td><input type="number" name="BoardHeight" style="text-align:right;width:430px" value="{{.BoardHeight}}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>GIF width</b>:</td>
+                            <td><input type="number" name="GIFWidth" style="text-align:right;width:430px" value="{{.GIFWidth}}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>GIF height</b>:</td>
+                            <td><input type="number" name="GIFHeight" style="text-align:right;width:430px" value="{{.GIFHeight}}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Delay</b>:</td>
+                            <td><input type="number" name="Delay" style="text-align:right;width:430px" value="{{.Delay}}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Cell size in pixels</b>:</td>
+                            <td><input type="number" name="CellSizeInPx" style="text-align:right;width:430px" size=50 value="{{.CellSizeInPx}}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Generation total</b>:</td>
+                            <td><input type="number" name="GenTotal" style="text-align:right;width:430px" size=50 value="{{.GenTotal}}"></td>
+                        </tr>
+                        <tr>
+                            <td><b>Background color</b>:</td>
+                            <td>
+                                <select name="BkColor" style="width:430px;text-align:right">
+                                    {{.BkColor}}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><b>Foreground color</b>:</td>
+                            <td>
+                                <select name="FgColor" style="width:430px;text-align:right">
+                                    {{.FgColor}}
+                                </select>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><input type="checkbox" name="Endless" value="1" {{.Endless}}>
+                            <b>Endless animation</b></td>
+                            <td><input type="submit" style="width:430px" value="Generate"></td>
+                        </tr>
+                    </table>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <div style="background-color:red">
+        <center><b>{{.Error}}</b></center>
+    </div>
+    <div>
+        <center>
+            <img src="data:image/gif;base64,{{.GIFData}}" alt=":("/>
+        </center>
+    </div>
+    <footer>
+        <p><small>Googol is Copyright (C) 2019 by Rafael Santiago<br>
+         Issues: <a href="https://github.com/rafael-santiago/googol/issues" targe=_vblank>https://github.com/rafael-santiago/googol/issues</a><br>
+         Contact: Yours nearest /dev/null</small>
+    </footer>
+</html>
