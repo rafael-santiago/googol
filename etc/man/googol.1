@@ -1,0 +1,60 @@
+.TH googol 1 "December 14, 2019" "version v1" "USER COMMANDS"
+.SH NAME
+googol \- a Conway's Game of Life implementation
+.SH SYNOPSIS
+.B googol [\fIOPTIONS\fR]
+.SH DESCRIPTION
+\fIGoogol\fR is a Conway's game of life that outputs the game generations as a GIF animation. You can play with it as a batch
+game or play with its HTML version through a well-simple HTTPd.
+.PP
+\fI'Googol'\fR stands for \fIGoo\fRgol is yet another \fIG\fRame \fIo\fRf \fIL\fRife. However, the majority of gophers
+prefer "\fIG\fRame \fIo\fRf Life err..\fIo\fRh! in \fIGo\fR\fIl\fRang"...
+
+.PP
+@=\\
+
+.PP
+You need to define the initial game state. It can be done by passing a set of option in form \fI--<n>,<n>.\fR,
+where \fIn\fR denotes a coordinate at the game's board.
+.PP
+In order to outputs a GIF the shortest command is: 
+
+_googol gif --0,1. --0,2. --0,3. > blinker.gif
+
+.PP
+In order to run its HTTPd an play with its web interface, the shortest command is: 
+
+_googol httpd
+
+.PP
+A webserver at 'localhost:8080/googol' will be created. The webserver can be gracefully finished with
+\fISIGTERM\fR or \fISIGINT\fR (ctrl + c).
+
+.PP
+The \fIgif\fR and \fIhttpd\fR commands accept a bunch of options. If you want to learn more give it a try
+by running the command:
+
+_googol help gif
+
+    or
+
+_googol help httpd
+
+.PP
+More technical information can be found in googol's documentation (MANUAL.txt or README.md).
+
+.SH EXIT STATUS
+If the execution succeeds \fIgoogol\fR returns zero, otherwise non zero values will be returned.
+
+.PP
+.SH
+SEE ALSO
+.TP
+\fI/usr/local/share/googol/doc\fR (or equivalent in your system).
+.PP
+.SH
+HOMEPAGE
+.TP
+https://github.com/rafael-santiago/googol
+.SH AUTHOR
+Rafael Santiago
