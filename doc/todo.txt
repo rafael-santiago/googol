@@ -1,5 +1,5 @@
 (A) httpdHandle() is blocking. Make it really asynchronous. +Improvement
-(B) Implement a build install/uninstall routine. +Build
+x (B) Implement a build install/uninstall routine. +Build
 x (B) Write a decent Readme.md +Documentation
 x (A) Write doc/MANUAL.txt. +Documentation
 x (A) Include the color option 'random' in HTML template. + Improvemnet

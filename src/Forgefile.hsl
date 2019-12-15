@@ -5,6 +5,7 @@
 #
 
 include ~/toolsets/go/go.hsl
+include ~/fsutil.hsl
 
 var src type list;
 var dep type string;
@@ -12,6 +13,15 @@ var dep type string;
 project googol : toolset "go" : dependencies $dep : $src;
 
 googol.prologue() {
+    var option type list;
+    $option = hefesto.sys.get_option("install");
+    if ($option.count() > 0) {
+        hefesto.project.abort(install_googol());
+    }
+    $option = hefesto.sys.get_option("uninstall");
+    if ($option.count() > 0) {
+        hefesto.project.abort(uninstall_googol());
+    }
     setup_gopath();
     $src.ls(".*\\.go$");
 }
@@ -53,4 +63,79 @@ local function setup_gopath() : result type none {
         $gopath = $gopath + $cherry_gopath_entry;
         hefesto.sys.setenv("GOPATH", $cherry_gopath_entry);
     }
+}
+
+local function install_googol() : result type int {
+    var src type list;
+    var dest type list;
+    var binary type string;
+    $binary = "googol";
+    if (hefesto.sys.os_name() == "windows") {
+        $binary = $binary + ".exe";
+    }
+    if (isfile($binary) == 0) {
+        if (hefesto.sys.run("hefesto") != 0 || isfile($binary) == 0) {
+            result 1;
+        }
+    }
+    $src.add_item("../doc/MANUAL.txt");
+    $src.add_item($binary);
+    if (hefesto.sys.os_name() != "windows") {
+        $src.add_item("../etc/man/googol.1");
+    }
+    if (hefesto.sys.os_name() != "windows") {
+        $dest.add_item("/usr/local/share/googol/doc");
+        $dest.add_item("/usr/games");
+        $dest.add_item("/usr/local/man/man1");
+    } else {
+        $dest.add_item("C:\\googol\\doc");
+        $dest.add_item("C:\\googol\\bin");
+    }
+    var sd type int;
+    $sd = 0;
+    while ($sd < $src.count()) {
+        var src_path type string;
+        $src_path = $src.item($sd);
+        var dest_path type string;
+        $dest_path = $dest.item($sd);
+        if (isdir($dest_path) == 0) {
+            mktree($dest_path);
+        }
+        $dest_path = hefesto.sys.make_path($dest_path, filenamefrompath($src_path));
+        if (hefesto.sys.cp($src_path, $dest_path) != 1) {
+            hefesto.sys.echo("ERROR: While copying '" + $dest_path + "'.\n");
+            result 1;
+        }
+        $sd = $sd + 1;
+    }
+    hefesto.sys.echo("INFO: Installed.\n");
+    result 0;
+}
+
+local function uninstall_googol() : result type none {
+    var src type list;
+    if (hefesto.sys.os_name() != "windows") {
+        $src.add_item("/usr/local/share/googol/doc/MANUAL.txt");
+        $src.add_item("/usr/local/share/googol/doc");
+        $src.add_item("/usr/local/man/man1/googol.1");
+        $src.add_item("/usr/games/googol");
+    } else {
+        $src.add_item("C:\\googol\\doc\\MANUAL.txt");
+        $src.add_item("C:\\googol\\bin\\googol.exe");
+        $src.add_item("C:\\googol\\bin");
+    }
+    var s type int;
+    $s = 0;
+    while ($s < $src.count()) {
+        var src_path type string;
+        $src_path = $src.item($s);
+        if (isdir($src_path)) {
+            rmtree($src_path);
+        } else if (hefesto.sys.rm($src_path) != 0) {
+            hefesto.sys.echo("ERROR: While trying to remove '" + $src_path + "'. Do it on your own.\n");
+        }
+        $s = $s + 1;
+    }
+    hefesto.sys.echo("INFO: Uninstalled.\n");
+    result 0;
 }
