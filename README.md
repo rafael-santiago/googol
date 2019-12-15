@@ -110,7 +110,7 @@ more get the gif's command guide in the following way:
     you@somewhere:~/over/the/rainbow# _
 ```
 
-# Playing with it in httpd mode
+## Playing with it in httpd mode
 
 Use the sub-command ``httpd``:
 
