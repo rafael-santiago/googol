@@ -122,6 +122,7 @@ The following command generates the ``acorn.gif`` pattern in Figure 1.
 ```
 
 **Figure 1**: Acorn pattern.
+
 ![Acorn](https://github.com/rafael-santiago/googol/blob/master/etc/acorn.gif)
 
 ### Playing with it in httpd mode
