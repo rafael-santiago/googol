@@ -204,4 +204,4 @@ In Figure 2 you can see the ``Googol``'s default HTML interface.
 
 **Figure 2**: Default HTML interface.
 
-![HTTPd-default-interface](https://github.com/rafael-santiago/googol/blob/master/etc/httpd-screenshot.gif)
+![HTTPd-default-interface](https://github.com/rafael-santiago/googol/blob/master/etc/httpd-screenshot.png)
