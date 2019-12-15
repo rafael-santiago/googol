@@ -66,7 +66,7 @@ If you do not know what Game of Life is take a look at [here](https://www.conway
 Until now googol can be used in two ways. As a batch tool that can creates GIF images representing the game's generations
 or as a webserver with a web page where you can input game data and see its output.
 
-## Playing with it in batch mode
+### Playing with it in batch mode
 
 Use the sub-command ``gif``:
 
@@ -110,7 +110,21 @@ more get the gif's command guide in the following way:
     you@somewhere:~/over/the/rainbow# _
 ```
 
-## Playing with it in httpd mode
+The following command generates the ``acorn.gif`` pattern in Figure 1.
+
+```
+    you@somewhere:~/over/the/rainbow# googol gif \
+    > --50,50. --51,52. --52,49. --52,50. --52,53. --52,54. --52,55. \
+    > --board-width=100 --board-height=100 \
+    > --cell-size-inpx=2 --delay=1 --gen-total=5206 \
+    > --gif-width=200 --gif-height=200 --endless
+    you@somewhere:~/over/the/rainbow# _
+```
+
+**Figure 1**: Acorn pattern.
+![Acorn](https://github.com/rafael-santiago/googol/blob/master/etc/acorn.gif)
+
+### Playing with it in httpd mode
 
 Use the sub-command ``httpd``:
 
