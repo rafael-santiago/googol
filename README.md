@@ -5,7 +5,7 @@ lousy acronym which stands for ``Goo``gol is yet another ``g``ame ``o``f ``l``if
 gophers certainly will prefer ``G``ame ``o``f Life... err..  ``o``h! in ``gol``ang...
 
 If you are hooked on Game of Life maybe you should like also check another implementation of mine of this game by using
-``IA-32`` assembly here](https://github.com/rafael-santiago/life).
+``IA-32`` assembly [here](https://github.com/rafael-santiago/life).
 
 ## How can I build it?
 
