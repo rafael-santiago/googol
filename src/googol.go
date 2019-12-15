@@ -170,11 +170,12 @@ var getColorOption = func(data interface{}) (template.HTML, color.Color) {
 		selColor = data.([]string)[0]
 	}
 	colors := reflect.ValueOf(gAvailColors).MapKeys()
-	colorsLen := len(colors)
+	colorsLen := len(colors) + 1
 	colorList := make([]string, colorsLen)
-	for c := 0; c < colorsLen; c++ {
+	for c := 0; c < colorsLen - 1; c++ {
 		colorList[c] = colors[c].String()
 	}
+        colorList[colorsLen - 1] = "random"
 	sort.Strings(colorList)
 	var strData string
 	for _, c := range colorList {
@@ -446,12 +447,12 @@ func helpHttpd() int {
 func httpdGIFdumper() int {
 	http.HandleFunc("/googol", httpdHandler)
 	var err error
-	gMaxBoardWidth, err := strconv.Atoi(getOption("max-board-width", fmt.Sprintf("%d", gMaxBoardWidth)))
+	gMaxBoardWidth, err = strconv.Atoi(getOption("max-board-width", fmt.Sprintf("%d", gMaxBoardWidth)))
 	if err != nil || gMaxBoardWidth <= 0 {
 		fmt.Fprintf(os.Stderr, "ERROR: option --max-board-width must be a valid positive integer.\n")
 		os.Exit(1)
 	}
-	gMaxBoardHeight, err := strconv.Atoi(getOption("max-board-height", fmt.Sprintf("%d", gMaxBoardHeight)))
+	gMaxBoardHeight, err = strconv.Atoi(getOption("max-board-height", fmt.Sprintf("%d", gMaxBoardHeight)))
 	if err != nil || gMaxBoardHeight <= 0 {
 		fmt.Fprintf(os.Stderr, "ERROR: option --max-board-height must be a valid positive integer.\n")
 		os.Exit(1)
@@ -515,7 +516,7 @@ func httpdHandler(w http.ResponseWriter, r *http.Request) {
 	var err error
 	boardWidth, err = strconv.Atoi(userData.BoardWidth)
 	if err != nil || boardWidth <= 0 || boardWidth > gMaxBoardWidth {
-		userData.Error = template.HTML(fmt.Sprint("ERROR: Board width must be a valid positive "+
+		userData.Error = template.HTML(fmt.Sprintf("ERROR: Board width must be a valid positive "+
 			"integer between 1 and %d.",
 			gMaxBoardWidth))
 		responseTemplate.Execute(w, userData)
@@ -523,7 +524,7 @@ func httpdHandler(w http.ResponseWriter, r *http.Request) {
 	}
 	boardHeight, err = strconv.Atoi(userData.BoardHeight)
 	if err != nil || boardHeight <= 0 || boardHeight > gMaxBoardHeight {
-		userData.Error = template.HTML(fmt.Sprint("ERROR: Board height must be a valid positive "+
+		userData.Error = template.HTML(fmt.Sprintf("ERROR: Board height must be a valid positive "+
 			"integer between 1 and %d.",
 			gMaxBoardHeight))
 		responseTemplate.Execute(w, userData)
@@ -775,9 +776,9 @@ func getColor(colorName string) color.Color {
 	if colorName == "any" || colorName == "random" {
 		var r, g, b uint8
 		for l := 0; l <= rand.Int()%((rand.Int()%10)+1); l++ {
-			r = (uint8(rand.Int()) + g) << (r >> 4)
-			g = (uint8(rand.Int()) + r + b) & g
-			b = (uint8(rand.Int()) + r + g) >> (b & 0xF)
+			r = (uint8(rand.Int()) + g)
+			g = (uint8(rand.Int()) + r + b)
+			b = (uint8(rand.Int()) + r + g)
 		}
 		return color.RGBA{r, g, b, 0xFF}
 	}

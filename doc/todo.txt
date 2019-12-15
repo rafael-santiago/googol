@@ -1,6 +1,6 @@
-(A) Include the color option 'random' in HTML template. + Improvemnet
 (A) httpdHandle() is blocking. Make it really asynchronous. +Improvement
 (A) Write doc/MANUAL.txt. +Documentation
 (B) Implement a build install/uninstall routine. +Build
 (B) Write a decent Readme.md +Documentation
+x (A) Include the color option 'random' in HTML template. + Improvemnet
 x (A) Set board width and height limits for httpd command. +Improvement
