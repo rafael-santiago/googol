@@ -117,7 +117,7 @@ The following command generates the ``acorn.gif`` pattern in Figure 1.
     > --50,50. --51,52. --52,49. --52,50. --52,53. --52,54. --52,55. \
     > --board-width=100 --board-height=100 \
     > --cell-size-inpx=2 --delay=1 --gen-total=5206 \
-    > --gif-width=200 --gif-height=200 --endless
+    > --gif-width=200 --gif-height=200 --endless --out=acorn.gif
     you@somewhere:~/over/the/rainbow# _
 ```
 
