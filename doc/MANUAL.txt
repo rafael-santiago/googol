@@ -83,8 +83,7 @@ The default output is stdout, but you can change it by passing '--out=<file-path
     > --out=/usr/share/docs/gifs/conways-game-of-life-blinker.gif
     you@somewhere:~/over/the/rainbow# _
 
-The GIF animation is not endless by default. In order to make it endless pass the option
-'--endless'.
+The GIF animation is not endless by default. In order to make it endless pass the option '--endless'.
 
     you@somewhere:~/over/the/rainbow# googol gif --2,2. --2,3. --2,4. \
     > --endless > blinker.gif
