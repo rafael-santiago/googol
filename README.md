@@ -199,3 +199,9 @@ The sub-command ``httpd`` also accepts a bunch of other commands that you can le
     you@somewhere:~/over/the/rainbow# googol help httpd
     you@somewhere:~/over/the/rainbow# _
 ```
+
+In Figure 2 you can see the ``Googol``'s default HTML interface.
+
+**Figure 2**: Default HTML interface.
+
+![HTTPd-default-interface](https://github.com/rafael-santiago/googol/blob/master/etc/httpd-screenshot.gif)
