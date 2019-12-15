@@ -259,13 +259,13 @@ var gDefaultFields = map[string]func(*GoogolRequest){
 	},
 	"Endless": func(req *GoogolRequest) { req.Endless = setCheckboxState(getBoolOption("endless", gDefaultEndless)) }}
 
-const errorHTML = `
+var gMaxBoardWidth int = 500
 
-`
+var gMaxBoardHeight int = 500
 
 var gFormTemplate string = `
 <html>
-    <title>googol</title>
+    <title>Googol webserver</title>
     <h1>Googol webserver</h1>
     <table border=0>
         <tr bgcolor="black">
@@ -428,6 +428,8 @@ func helpHttpd() int {
 		"\t* --server-crt = <empty>\n"+
 		"\t* --server-key = <empty>\n"+
 		"\t* --form-template = (some lousy default HTML)\n"+
+		"\t* --max-board-width = %d\n"+
+		"\t* --max-board-height = %d\n"+
 		"Notes:\n\n"+
 		"\t* When https is requested the default port is 443.\n"+
 		"\t* In order to gracefully stop the server send to the process\n"+
@@ -436,13 +438,24 @@ func helpHttpd() int {
 		"\t* The defaults for the game and gifs are the same of the 'gif'\n"+
 		"\t  command.\n"+
 		"\t* If you want to set new defaults for the game or gifs\n"+
-		"\t  use the same options available in 'gif' command.\n", gDefaultPort, gDefaultAddr)
+		"\t  use the same options available in 'gif' command.\n", gDefaultPort, gDefaultAddr, gMaxBoardWidth,
+		gMaxBoardHeight)
 	return 0
 }
 
 func httpdGIFdumper() int {
 	http.HandleFunc("/googol", httpdHandler)
 	var err error
+	gMaxBoardWidth, err := strconv.Atoi(getOption("max-board-width", fmt.Sprintf("%d", gMaxBoardWidth)))
+	if err != nil || gMaxBoardWidth <= 0 {
+		fmt.Fprintf(os.Stderr, "ERROR: option --max-board-width must be a valid positive integer.\n")
+		os.Exit(1)
+	}
+	gMaxBoardHeight, err := strconv.Atoi(getOption("max-board-height", fmt.Sprintf("%d", gMaxBoardHeight)))
+	if err != nil || gMaxBoardHeight <= 0 {
+		fmt.Fprintf(os.Stderr, "ERROR: option --max-board-height must be a valid positive integer.\n")
+		os.Exit(1)
+	}
 	var googol func()
 	if !getBoolOption("https", false) {
 		googol = func() {
@@ -501,25 +514,29 @@ func httpdHandler(w http.ResponseWriter, r *http.Request) {
 	var boardWidth, boardHeight, gifWidth, gifHeight, delay, cellSizeInPx, genNr int
 	var err error
 	boardWidth, err = strconv.Atoi(userData.BoardWidth)
-	if err != nil || boardWidth < 0 {
-		userData.Error = "ERROR: Board width must be a valid positive integer."
+	if err != nil || boardWidth <= 0 || boardWidth > gMaxBoardWidth {
+		userData.Error = template.HTML(fmt.Sprint("ERROR: Board width must be a valid positive "+
+			"integer between 1 and %d.",
+			gMaxBoardWidth))
 		responseTemplate.Execute(w, userData)
 		return
 	}
 	boardHeight, err = strconv.Atoi(userData.BoardHeight)
-	if err != nil || boardHeight < 0 {
-		userData.Error = "ERROR: Board height must be a valid positive integer."
+	if err != nil || boardHeight <= 0 || boardHeight > gMaxBoardHeight {
+		userData.Error = template.HTML(fmt.Sprint("ERROR: Board height must be a valid positive "+
+			"integer between 1 and %d.",
+			gMaxBoardHeight))
 		responseTemplate.Execute(w, userData)
 		return
 	}
 	gifWidth, err = strconv.Atoi(userData.GIFWidth)
-	if err != nil || gifWidth < 0 {
+	if err != nil || gifWidth <= 0 {
 		userData.Error = "ERROR: GIF width must be a valid positive integer."
 		responseTemplate.Execute(w, userData)
 		return
 	}
 	gifHeight, err = strconv.Atoi(userData.GIFHeight)
-	if err != nil || gifHeight < 0 {
+	if err != nil || gifHeight <= 0 {
 		userData.Error = "ERROR: GIF height must be a valid positive integer."
 		responseTemplate.Execute(w, userData)
 		return

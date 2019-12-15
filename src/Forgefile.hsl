@@ -9,9 +9,9 @@ include ~/toolsets/go/go.hsl
 var src type list;
 var dep type string;
 
-project go-life : toolset "go" : dependencies $dep : $src;
+project googol : toolset "go" : dependencies $dep : $src;
 
-go-life.prologue() {
+googol.prologue() {
     setup_gopath();
     $src.ls(".*\\.go$");
 }
