@@ -11,7 +11,7 @@
 // "Googol - [G]ame [o]f life err...[o]h! in [go] [l]ang"...
 //
 // Sorry, it was silly. Anyway, it is just a well-simple program
-// that outputs some generations of Coway's game of life as an
+// that outputs some generations of Conway's game of life as an
 // animated GIF.
 //
 // For the sake of simplicity, trying to suckless I have decided
