@@ -59,7 +59,7 @@ Uninstalling:
     you@somewhere:~/over/the/rainbow# _
 ```
 
-## How I could create certificates for httpd mode?
+## How can I create certificates for httpd mode?
 
 I have automated it through an build task that you can use just by invoking:
 
