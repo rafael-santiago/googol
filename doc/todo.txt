@@ -1,4 +1,5 @@
 (A) httpdHandle() is blocking. Make it really asynchronous. +Improvement
+x (B) Implement build task '--make-certificate'. +Build
 x (B) Implement a build install/uninstall routine. +Build
 x (B) Write a decent Readme.md +Documentation
 x (A) Write doc/MANUAL.txt. +Documentation

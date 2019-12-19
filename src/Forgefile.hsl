@@ -22,6 +22,10 @@ googol.prologue() {
     if ($option.count() > 0) {
         hefesto.project.abort(uninstall_googol());
     }
+    $option = hefesto.sys.get_option("make-certificate");
+    if ($option.count() > 0) {
+        make_certificate();
+    }
     setup_gopath();
     $src.ls(".*\\.go$");
 }
@@ -138,4 +142,34 @@ local function uninstall_googol() : result type none {
     }
     hefesto.sys.echo("INFO: Uninstalled.\n");
     result 0;
+}
+
+local function make_certificate() : result type none {
+    var key type list;
+    $key = hefesto.sys.get_option("server-key");
+    if ($key.count() == 0) {
+        hefesto.sys.echo("ERROR: --server-key option is missing.\n");
+        hefesto.project.abort(1);
+    }
+    var cert type list;
+    $cert = hefesto.sys.get_option("server-cert");
+    if ($cert.count() == 0) {
+        hefesto.sys.echo("ERROR: --server-cert option is missing.\n");
+        hefesto.project.abort(1);
+    }
+    var key_path type string;
+    var cert_path type string;
+    $key_path = $key.item(0);
+    $cert_path = $cert.item(0);
+    hefesto.sys.rm($key_path);
+    hefesto.sys.rm($cert_path);
+    if (hefesto.sys.run("openssl req -new -newkey rsa:2048 -days 365 -nodes -x509 -keyout " + $key_path +
+                        " -out " + $cert_path) != 0 || isfile($key_path) == 0 || isfile($cert_path) == 0) {
+        hefesto.sys.echo("ERROR: Unable to create the certificate.\n");
+        hefesto.sys.rm($key_path);
+        hefesto.sys.rm($cert_path);
+        hefesto.project.abort(1);
+    }
+    hefesto.sys.echo("INFO: Certificate was created.\n");
+    hefesto.project.abort(0);
 }

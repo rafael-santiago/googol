@@ -59,6 +59,16 @@ Uninstalling:
     you@somewhere:~/over/the/rainbow# _
 ```
 
+## How I could create certificates for httpd mode?
+
+I have automated it through an build task that you can use just by invoking:
+
+```
+    you@somewhere:~/over/the/rainbow# hefesto --make-certificate \
+    > --server-key=my-httpd.key --server-crt=my-httpd.crt
+    you@somewhere:~/over/the/rainbow# _
+```
+
 ## How can I play with it?
 
 If you do not know what Game of Life is take a look at [here](https://www.conwaylife.com).
