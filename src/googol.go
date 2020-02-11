@@ -14,20 +14,20 @@
 // that outputs some generations of Conway's game of life as an
 // animated GIF.
 //
-// For the sake of simplicity, trying to suckless I have decided
+// For the sake of simplicity, trying to suckless, I have decided
 // to concentrate all stuff in one single file. Thus, just
 //
 //              'go build googol.go' and
 //              go ahead, away or home...
 //
 // You can also use my build system to automate some stuff such
-// as compile and test in a pretty messy environment and also
+// as compile and test on a pretty messy environment and also
 // install googol:
 //
 //      - compile and build: 'hefesto'
 //      - install: 'hefesto --install'
 //
-// Of course, you need to install Hefesto before, for doing it
+// Of course, you need to install Hefesto before. For doing it
 // get its code and some instructions at:
 //
 //           <https://github.com/rafael-santiago/hefesto>
@@ -127,7 +127,7 @@ var gAvailCommandHelpers = map[string]func() int{"gif": helpGIF,
 		return 0
 	}}
 
-// INFO(Rafael): This is a little bit clamsy but it does the job.
+// INFO(Rafael): This is a little bit clumsy but it does the job.
 
 var setField = func(strPtr *string, data interface{}) {
 	switch data.(type) {

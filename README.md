@@ -61,7 +61,7 @@ Uninstalling:
 
 ## How can I create certificates for httpd mode?
 
-I have automated it through an build task that you can use just by invoking:
+I have automated it through a build task that you can use just by invoking:
 
 ```
     you@somewhere:~/over/the/rainbow# hefesto --make-certificate \
@@ -144,7 +144,7 @@ Use the sub-command ``httpd``:
     you@somewhere:~/over/the/rainbow# _
 ```
 
-If you run the command above, a webserver at ``http://localhost:8080/googol`` will be created. Only yoy will be able to
+If you run the command above, a webserver at ``http://localhost:8080/googol`` will be created. Only you will be able to
 access it. If you want to other people accessing it you must to pass the interface address:
 
 ```

@@ -103,7 +103,7 @@ Use the sub-command 'httpd':
     you@somewhere:~/over/the/rainbow# googol httpd
     you@somewhere:~/over/the/rainbow# _
 
-If you run the command above, a webserver at 'http://localhost:8080/googol' will be created. Only yoy will be able to
+If you run the command above, a webserver at 'http://localhost:8080/googol' will be created. Only you will be able to
 access it. If you want to other people accessing it you must to pass the interface address:
 
     you@somewhere:~/over/the/rainbow# googol httpd --addr=<your-ip-or-hostname>
